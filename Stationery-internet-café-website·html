@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dataphix Stationery & Internet Café</title>
+  <meta name="description" content="Stationery + Internet cafe offering printing, programming, scanning, typing, training and more. Dark-mode first responsive site with interactive booking & pricing." />
+
+  <!-- Tailwind CDN (for quick prototype) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Small custom utilities */
+    :root{--glass: rgba(255,255,255,0.04);}
+    [data-theme="dark"] body{background:#0b0f12;color:#e6eef6}
+    .glass {background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(6px);}
+    .accent {color:#7dd3fc}
+    .brand {color:#a78bfa}
+  </style>
+</head>
+<body class="antialiased font-sans bg-gray-900 text-gray-100">
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 glass border-b border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-sky-400 flex items-center justify-center text-white font-bold">DS</div>
+        <div>
+          <div class="text-sm font-semibold">Dataphix</div>
+          <div class="text-xs text-gray-400">Stationery & Internet Café</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex gap-6 items-center">
+        <a href="#services" class="hover:underline">Services</a>
+        <a href="#pricing" class="hover:underline">Pricing</a>
+        <a href="#book" class="hover:underline">Book</a>
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="px-3 py-2 rounded-md glass text-sm">Toggle ✨</button>
+        <button id="openCart" class="bg-sky-500 hover:bg-sky-400 text-black px-3 py-2 rounded-md text-sm">Cart <span id="cartCount" class="ml-2 inline-block w-6 text-center">0</span></button>
+        <button id="mobileMenuBtn" class="md:hidden p-2">
+          <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+      <div class="flex flex-col gap-2">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#book">Book</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="max-w-6xl mx-auto px-4 py-16">
+    <div class="grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Dataphix — where prints meet pixels.</h1>
+        <p class="mt-4 text-gray-300">Printing, scanning, internet & professional IT services — from typing and CV design to web development and debugging. Drop files, book a slot, or request remote programming help. Dark-mode friendly (obvs).</p>
+
+        <div class="mt-6 flex gap-3">
+          <a href="#services" class="bg-indigo-500 hover:bg-indigo-400 px-4 py-2 rounded-md text-black font-semibold">Explore Services</a>
+          <button id="quickBook" class="glass px-4 py-2 rounded-md">Quick Book</button>
+        </div>
+
+        <div class="mt-6 grid grid-cols-3 gap-3 text-sm text-gray-400">
+          <div class="border border-gray-800 p-3 rounded">Open: Mon–Sat</div>
+          <div class="border border-gray-800 p-3 rounded">Free Wi‑Fi</div>
+          <div class="border border-gray-800 p-3 rounded">Printer & Binding</div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="w-full h-64 lg:h-80 rounded-xl overflow-hidden glass border border-gray-800 flex items-center justify-center">
+          <div class="text-center">
+            <div class="text-2xl font-bold brand">Your docs, faster.</div>
+            <div class="mt-3 text-sm text-gray-300">Upload & preview before you print — see price estimate live.</div>
+            <div class="mt-4">
+              <input id="fileUpload" type="file" accept=".pdf,.doc,.docx,.txt,.png,.jpg" class="text-sm text-gray-300 bg-transparent" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-bold">Services</h2>
+    <p class="text-gray-400 mt-2">Full-stack of stationery + IT services. Pick what you need — booking & price estimator below.</p>
+
+    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- card template -->
+      <div class="p-4 glass border border-gray-800 rounded-lg">
+        <h3 class="font-semibold">Printing</h3>
+        <p class="text-sm text-gray-300 mt-2">Black & white, color, double-sided, binding, lamination.</p>
+        <div class="mt-4 flex gap-2">
+          <button class="addServiceBtn px-3 py-1 rounded bg-sky-500 text-black text-sm" data-service='{"id":"print","name":"Printing","base":0.12}'>Add</button>
+          <button class="px-3 py-1 rounded glass text-sm" onclick="openDetails('print')">Details</button>
+        </div>
+      </div>
+
+      <div class="p-4 glass border border-gray-800 rounded-lg">
+        <h3 class="font-semibold">Internet & PC use</h3>
+        <p class="text-sm text-gray-300 mt-2">Hourly computer access, high-speed Wi‑Fi, workstation support.</p>
+        <div class="mt-4 flex gap-2">
+          <button class="addServiceBtn px-3 py-1 rounded bg-sky-500 text-black text-sm" data-service='{"id":"internet","name":"PC Access","base":0.8}'>Add</button>
+          <button class="px-3 py-1 rounded glass text-sm" onclick="openDetails('internet')">Details</button>
+        </div>
+      </div>
+
+      <div class="p-4 glass border border-gray-800 rounded-lg">
+        <h3 class="font-semibold">Programming Help</h3>
+        <p class="text-sm text-gray-300 mt-2">Code troubleshooting, mini-jobs, tutoring (hourly). Send snippet or request remote session.</p>
+        <div class="mt-4 flex gap-2">
+          <button class="addServiceBtn px-3 py-1 rounded bg-sky-500 text-black text-sm" data-service='{"id":"code","name":"Programming","base":10}'>Add</button>
+          <button class="px-3 py-1 rounded glass text-sm" onclick="openDetails('code')">Details</button>
+        </div>
+      </div>
+
+      <div class="p-4 glass border border-gray-800 rounded-lg">
+        <h3 class="font-semibold">Scanning & Typing</h3>
+        <p class="text-sm text-gray-300 mt-2">Scan to PDF, type-up services, data entry and transcription.</p>
+        <div class="mt-4 flex gap-2">
+          <button class="addServiceBtn px-3 py-1 rounded bg-sky-500 text-black text-sm" data-service='{"id":"typing","name":"Typing","base":1.5}'>Add</button>
+          <button class="px-3 py-1 rounded glass text-sm" onclick="openDetails('typing')">Details</button>
+        </div>
+      </div>
+
+      <div class="p-4 glass border border-gray-800 rounded-lg">
+        <h3 class="font-semibold">Design & CV</h3>
+        <p class="text-sm text-gray-300 mt-2">Resume/CV formatting, basic poster & flyer design.</p>
+        <div class="mt-4 flex gap-2">
+          <button class="addServiceBtn px-3 py-1 rounded bg-sky-500 text-black text-sm" data-service='{"id":"design","name":"Design","base":8}'>Add</button>
+          <button class="px-3 py-1 rounded glass text-sm" onclick="openDetails('design')">Details</button>
+        </div>
+      </div>
+
+      <div class="p-4 glass border border-gray-800 rounded-lg">
+        <h3 class="font-semibold">Training & Workshops</h3>
+        <p class="text-sm text-gray-300 mt-2">Small group classes: basic computer literacy, web dev crash course.</p>
+        <div class="mt-4 flex gap-2">
+          <button class="addServiceBtn px-3 py-1 rounded bg-sky-500 text-black text-sm" data-service='{"id":"training","name":"Training","base":20}'>Add</button>
+          <button class="px-3 py-1 rounded glass text-sm" onclick="openDetails('training')">Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING & ESTIMATOR -->
+  <section id="pricing" class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-bold">Price Estimator</h2>
+    <p class="text-gray-400 mt-2">Choose options, get a live estimate — add to cart and check out at counter.</p>
+
+    <div class="mt-6 grid md:grid-cols-2 gap-6">
+      <div class="glass p-4 border border-gray-800 rounded">
+        <h3 class="font-semibold">Estimator</h3>
+        <div class="mt-3 grid gap-3">
+          <label class="text-sm">Select service</label>
+          <select id="estService" class="p-2 bg-transparent border border-gray-800 rounded">
+            <option value="print">Printing</option>
+            <option value="internet">PC Access (per hour)</option>
+            <option value="code">Programming (per hour)</option>
+            <option value="typing">Typing (per page)</option>
+          </select>
+
+          <label class="text-sm">Quantity / Hours / Pages</label>
+          <input id="estQty" type="number" min="1" value="1" class="p-2 bg-transparent border border-gray-800 rounded" />
+
+          <div class="flex items-center gap-2">
+            <input id="doubleSide" type="checkbox" class="h-4 w-4" />
+            <label class="text-sm">Double-sided (printing)</label>
+          </div>
+
+          <div class="mt-3">
+            <button id="calcBtn" class="px-4 py-2 bg-sky-500 rounded text-black">Calculate</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass p-4 border border-gray-800 rounded">
+        <h3 class="font-semibold">Estimate</h3>
+        <div class="mt-4 text-3xl font-bold brand" id="estimate">UGX 0</div>
+        <div class="mt-4 text-sm text-gray-300">Add to cart to save this estimate and bring it to the shop.</div>
+        <div class="mt-4">
+          <button id="addEstimate" class="px-4 py-2 rounded bg-indigo-600">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING & CART -->
+  <section id="book" class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-bold">Book a slot / Checkout</h2>
+    <p class="text-gray-400 mt-2">Reserve a workstation, schedule an appointment for programming help, or queue your print job.</p>
+
+    <div class="mt-6 grid lg:grid-cols-2 gap-6">
+      <div class="glass p-4 border border-gray-800 rounded">
+        <h3 class="font-semibold">Quick Booking</h3>
+        <label class="text-sm mt-3">Name</label>
+        <input id="bookName" class="p-2 bg-transparent border border-gray-800 rounded w-full" />
+        <label class="text-sm mt-3">Phone or Email</label>
+        <input id="bookContact" class="p-2 bg-transparent border border-gray-800 rounded w-full" />
+        <label class="text-sm mt-3">Service</label>
+        <select id="bookService" class="p-2 bg-transparent border border-gray-800 rounded w-full">
+          <option value="internet">PC Access</option>
+          <option value="print">Printing</option>
+          <option value="code">Programming Help</option>
+        </select>
+        <label class="text-sm mt-3">Preferred Date & Time</label>
+        <input id="bookDatetime" type="datetime-local" class="p-2 bg-transparent border border-gray-800 rounded w-full" />
+
+        <div class="mt-4 flex gap-2">
+          <button id="submitBooking" class="px-4 py-2 rounded bg-emerald-500 text-black">Reserve</button>
+          <button id="saveDraft" class="px-4 py-2 rounded glass">Save draft</button>
+        </div>
+      </div>
+
+      <div class="glass p-4 border border-gray-800 rounded">
+        <h3 class="font-semibold">Cart & Recent</h3>
+        <div id="cartList" class="mt-3 space-y-2 text-sm text-gray-300">No items yet — add a service.</div>
+        <div class="mt-4 flex gap-2">
+          <button id="checkoutBtn" class="px-4 py-2 rounded bg-indigo-600">Checkout</button>
+          <button id="clearCart" class="px-4 py-2 rounded glass">Clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT + CONTACT -->
+  <section id="about" class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-2 gap-6 items-start">
+      <div>
+        <h2 class="text-2xl font-bold">About Dataphix</h2>
+        <p class="text-gray-300 mt-3">We blend old-school service with modern tools: photocopying, binding and community training alongside on-demand programming help. We care about reuse, low-power devices and keeping things simple and human.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Contact & Location</h3>
+        <p class="text-gray-300 mt-2">Sample location: Kampala, Uganda — replace with your real address.</p>
+        <div class="mt-3">
+          <!-- map placeholder -->
+          <div class="w-full h-48 rounded bg-gray-800 flex items-center justify-center text-gray-400">Map / iframe here</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-bold">Contact Us</h2>
+    <p class="text-gray-400 mt-2">Send a message and we'll get back (or call). For programming jobs, paste a short brief or attach a file.</p>
+
+    <form id="contactForm" class="mt-4 grid md:grid-cols-2 gap-4">
+      <input id="cName" placeholder="Your name" class="p-2 bg-transparent border border-gray-800 rounded" />
+      <input id="cContact" placeholder="Email or phone" class="p-2 bg-transparent border border-gray-800 rounded" />
+      <textarea id="cMsg" placeholder="Message / Brief" class="p-2 bg-transparent border border-gray-800 rounded md:col-span-2"></textarea>
+      <div class="md:col-span-2 flex gap-2">
+        <button class="px-4 py-2 rounded bg-emerald-500 text-black" type="button" id="sendMsg">Send</button>
+        <button class="px-4 py-2 rounded glass" type="reset">Clear</button>
+      </div>
+    </form>
+  </section>
+
+  <footer class="border-t border-gray-800 mt-8 py-6">
+    <div class="max-w-6xl mx-auto px-4 text-sm text-gray-400 flex justify-between">
+      <div>© Dataphix • Built with ♻️ in mind</div>
+      <div>Made for <span class="font-semibold">stationery, students & small biz</span></div>
+    </div>
+  </footer>
+
+  <!-- MODALS (simple) -->
+  <div id="modal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-60 z-50">
+    <div class="w-full max-w-2xl p-6 glass border border-gray-800 rounded">
+      <div class="flex justify-between items-start">
+        <h3 id="modalTitle" class="text-lg font-bold">Details</h3>
+        <button id="closeModal">✕</button>
+      </div>
+      <div id="modalBody" class="mt-4 text-sm text-gray-300"></div>
+    </div>
+  </div>
+
+  <script>
+    // === Theme toggle (persists in localStorage). Default dark. ===
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('dt_theme');
+    if (!savedTheme) { localStorage.setItem('dt_theme', 'dark'); }
+    else { if (savedTheme === 'light') html.removeAttribute('data-theme'); }
+    themeToggle.addEventListener('click', ()=>{
+      const cur = localStorage.getItem('dt_theme') || 'dark';
+      if (cur === 'dark') { localStorage.setItem('dt_theme','light'); html.removeAttribute('data-theme'); }
+      else { localStorage.setItem('dt_theme','dark'); html.setAttribute('data-theme','dark'); }
+    });
+
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('hidden'));
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    document.getElementById('closeModal').addEventListener('click', ()=> modal.classList.add('hidden'));
+    function openDetails(id){
+      modal.classList.remove('hidden');
+      if (id === 'print') {
+        modalTitle.textContent = 'Printing — options & tips';
+        modalBody.innerHTML = '<ul class="list-disc pl-5"><li>Price per page depends on color and duplex. Use estimator for live price.</li><li>We accept PDF, DOC, images.</li><li>Need binding? Choose at checkout.</li></ul>';
+      } else if (id === 'code'){
+        modalTitle.textContent = 'Programming Help';
+        modalBody.innerHTML = '<p>Short debugging jobs, tutoring, or remote sessions. Attach snippets or link a repo. Rates shown are per hour estimated.</p>';
+      } else if (id === 'internet'){
+        modalTitle.textContent = 'PC Access';
+        modalBody.innerHTML = '<p>Hourly station use. High speed. Save your work to a USB or cloud — we are not responsible for lost files.</p>';
+      } else {
+        modalTitle.textContent = 'Info'; modalBody.textContent = 'More details coming soon.';
+      }
+    }
+
+    // Add to cart & services management
+    const cart = JSON.parse(localStorage.getItem('dt_cart')||'[]');
+    const cartList = document.getElementById('cartList');
+    const cartCount = document.getElementById('cartCount');
+    function redrawCart(){
+      cartList.innerHTML = '';
+      if (cart.length === 0) cartList.textContent = 'No items yet — add a service.';
+      else cart.forEach((it, idx)=>{
+        const el = document.createElement('div');
+        el.className = 'flex items-center justify-between bg-gray-800 p-2 rounded';
+        el.innerHTML = `<div><div class="font-semibold">${it.name}</div><div class="text-xs text-gray-400">Qty: ${it.qty} • UGX ${it.price.toFixed(0)}</div></div><div><button data-i='${idx}' class='removeItem px-2 py-1 rounded glass'>x</button></div>`;
+        cartList.appendChild(el);
+      });
+      cartCount.textContent = cart.length;
+      localStorage.setItem('dt_cart', JSON.stringify(cart));
+    }
+    redrawCart();
+
+    document.addEventListener('click', (e)=>{
+      if (e.target.matches('.removeItem')){
+        const i = Number(e.target.dataset.i); cart.splice(i,1); redrawCart();
+      }
+      if (e.target.matches('.addServiceBtn')){
+        const svc = JSON.parse(e.target.dataset.service);
+        // default qty 1 — price uses base as per service
+        const item = {id:svc.id, name:svc.name, qty:1, price: svc.base};
+        cart.push(item); redrawCart();
+      }
+    });
+
+    document.getElementById('clearCart').addEventListener('click', ()=>{cart.splice(0); redrawCart();});
+
+    // Estimator logic (very simple) — prices are illustrative; replace with real
+    const pricing = { print: 200, internet: 1500, code: 10000, typing: 500 };
+    document.getElementById('calcBtn').addEventListener('click', ()=>{
+      const svc = document.getElementById('estService').value;
+      const qty = Number(document.getElementById('estQty').value) || 1;
+      const duplex = document.getElementById('doubleSide').checked;
+      let price = 0;
+      if (svc === 'print') {
+        price = pricing.print * qty; if (duplex) price *= 0.9; // discount for duplex
+      } else if (svc === 'internet') price = pricing.internet * qty;
+      else if (svc === 'code') price = pricing.code * qty;
+      else if (svc === 'typing') price = pricing.typing * qty;
+      document.getElementById('estimate').textContent = 'UGX ' + Math.round(price).toLocaleString();
+      document.getElementById('addEstimate').dataset.estimate = price;
+    });
+
+    document.getElementById('addEstimate').addEventListener('click', ()=>{
+      const price = Number(document.getElementById('addEstimate').dataset.estimate || 0);
+      if (!price) return alert('Calculate an estimate first.');
+      cart.push({id:'estimate-'+Date.now(), name:'Estimate', qty:1, price}); redrawCart();
+      alert('Estimate added to cart — bring it to the counter or checkout.');
+    });
+
+    // Booking — basic local storage save
+    document.getElementById('submitBooking').addEventListener('click', ()=>{
+      const name = document.getElementById('bookName').value.trim();
+      const contact = document.getElementById('bookContact').value.trim();
+      const svc = document.getElementById('bookService').value;
+      const dt = document.getElementById('bookDatetime').value;
+      if (!name||!contact||!dt) return alert('Please fill name, contact and date/time.');
+      const bookings = JSON.parse(localStorage.getItem('dt_bookings')||'[]');
+      bookings.push({id:Date.now(), name, contact, svc, dt});
+      localStorage.setItem('dt_bookings', JSON.stringify(bookings));
+      alert('Reserved — we will confirm when you arrive.');
+    });
+
+    document.getElementById('saveDraft').addEventListener('click', ()=>{
+      const draft = {
+        name: document.getElementById('bookName').value,
+        contact: document.getElementById('bookContact').value,
+        svc: document.getElementById('bookService').value,
+        dt: document.getElementById('bookDatetime').value
+      };
+      localStorage.setItem('dt_booking_draft', JSON.stringify(draft));
+      alert('Draft saved locally.');
+    });
+
+    // Quick Book button
+    document.getElementById('quickBook').addEventListener('click', ()=>{
+      document.getElementById('bookName').focus();
+      window.location.hash = '#book';
+    });
+
+    // Contact send (demo) — just saves locally and clears
+    document.getElementById('sendMsg').addEventListener('click', ()=>{
+      const m = {name:document.getElementById('cName').value, contact:document.getElementById('cContact').value, msg:document.getElementById('cMsg').value, at:new Date().toISOString()};
+      const msgs = JSON.parse(localStorage.getItem('dt_msgs')||'[]'); msgs.push(m); localStorage.setItem('dt_msgs', JSON.stringify(msgs));
+      alert('Message saved (demo). We will contact you.'); document.getElementById('contactForm').reset();
+    });
+
+    // File upload preview (basic)
+    document.getElementById('fileUpload').addEventListener('change', (e)=>{
+      const f = e.target.files[0]; if (!f) return;
+      modal.classList.remove('hidden'); modalTitle.textContent = 'Uploaded file'; modalBody.innerHTML = `<div class='text-sm'>${f.name} • ${Math.round(f.size/1024)} KB</div>`;
+    });
+
+    // Open cart panel (simple)
+    document.getElementById('openCart').addEventListener('click', ()=>{ window.location.hash='#book'; document.getElementById('cartList').scrollIntoView({behavior:'smooth'}); });
+
+    // Load draft booking if found
+    const draft = JSON.parse(localStorage.getItem('dt_booking_draft')||'null');
+    if (draft) {
+      document.getElementById('bookName').value = draft.name || '';
+      document.getElementById('bookContact').value = draft.contact || '';
+      document.getElementById('bookService').value = draft.svc || 'internet';
+      document.getElementById('bookDatetime').value = draft.dt || '';
+    }
+
+    // Ensure dark mode attribute present if saved
+    if ((localStorage.getItem('dt_theme')||'dark') === 'dark') html.setAttribute('data-theme','dark');
+
+    // Tiny UX: keyboard shortcut 'c' to open quick contact
+    document.addEventListener('keydown', (e)=>{ if (e.key.toLowerCase()==='c') { window.location.hash='#contact'; document.getElementById('cName').focus(); }});
+  </script>
+</body>
+</html>
